@@ -18,7 +18,7 @@ Deep learning models are loosely related to information processing and communica
 
 ### Acuracy ~ 91%
 
-<img src="https://github.com/akshaybahadur21/BreastCancer_Classification/blob/master/b_cancer_dl.gif">
+<img src="https://github.com/akshaybahadur21/Breast-Cancer-Deep-Learning/blob/master/b_cancer_dl.gif">
 
 ### Execution
 To run the code, type `python B_Cancer_DL.py`
