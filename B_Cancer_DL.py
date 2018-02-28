@@ -11,7 +11,7 @@ def main():
     train_x = np.array(train_x)
     train_y = pd.read_csv("cancer_data_y.csv")
     train_y = np.array(train_y)
-    #dims = [30, 30, 20, 11, 1]
+    # dims = [30, 30, 20, 11, 1]
     dims = [30, 50, 20, 11, 1]
     d = model(train_x.T, train_y.T, dims, print_cost=True)
 
@@ -278,7 +278,7 @@ def model(X, Y, layers_dims, alpha=0.009, num_iterations=2000, print_cost=True):
         cost = compute_cost(A_last, Y)
         grads = L_model_backward(A_last, Y, caches)
         if (i > 800):
-            alpha1 = (150 / (1.5*i)) * alpha
+            alpha1 = (150 / (1.5 * i)) * alpha
             params = update_params(params, grads, alpha1)
         else:
             params = update_params(params, grads, alpha)
@@ -288,7 +288,7 @@ def model(X, Y, layers_dims, alpha=0.009, num_iterations=2000, print_cost=True):
         if print_cost and i % 100 == 0:
             costs.append(cost)
     predictions = predict(params, X)
-    print('\nAccuracy on training set: %d' % float(
+    print('\nAccuracy on training set: %.2f' % float(
         (np.dot(Y, predictions.T) + np.dot(1 - Y, 1 - predictions.T)) / float(Y.size) * 100) + '%')
     truePositive = 0
     trueNegative = 0
@@ -312,14 +312,16 @@ def model(X, Y, layers_dims, alpha=0.009, num_iterations=2000, print_cost=True):
             print(predList[0][i])
             print(tlist[0][i])
             print("WTF")
-    tpr=truePositive/(truePositive+falseNegative)
-    fpr=falsePositive/(falsePositive+trueNegative)
+    tpr = truePositive / (truePositive + falseNegative) * 100
+    fpr = falsePositive / (falsePositive + trueNegative) * 100
+    precision = truePositive / (truePositive + falsePositive) * 100
     print("\nOn Train set:\nTrue Positive:  ", truePositive)
     print("True Negative:  ", trueNegative)
     print("False Negative:  ", falseNegative)
     print("False Positive:  ", falsePositive)
-    print("True Positive Rate / Recall:  ", tpr)
-    print("False Positive Rate / Fallout:  ", fpr)
+    print("True Positive Rate / Recall: %.2f" % tpr+str('%'))
+    print("Precision: %.2f" %precision+str('%'))
+    print("False Positive Rate / Fallout: %.2f" %fpr+str('%'))
 
     X_test = pd.read_csv("test_cancer_data.csv")
     X_test = np.array(X_test)
@@ -329,7 +331,7 @@ def model(X, Y, layers_dims, alpha=0.009, num_iterations=2000, print_cost=True):
     Y_test = Y_test.T
 
     predictions = predict(params, X_test)
-    print('\nAccuracy on test set: %d' % float(
+    print('\nAccuracy on test set: %.2f' % float(
         (np.dot(Y_test, predictions.T) + np.dot(1 - Y_test, 1 - predictions.T)) / float(Y_test.size) * 100) + '%')
     truePositive = 0
     trueNegative = 0
@@ -353,14 +355,16 @@ def model(X, Y, layers_dims, alpha=0.009, num_iterations=2000, print_cost=True):
             print(tlist[0][i])
             print("WTF")
 
-    tpr=truePositive/(truePositive+falseNegative)
-    fpr=falsePositive/(falsePositive+trueNegative)
+    tpr = truePositive / (truePositive + falseNegative) * 100
+    fpr = falsePositive / (falsePositive + trueNegative) * 100
+    precision = truePositive / (truePositive + falsePositive) * 100
     print("\nOn Test set:\nTrue Positive:  ", truePositive)
     print("True Negative:  ", trueNegative)
     print("False Negative:  ", falseNegative)
     print("False Positive:  ", falsePositive)
-    print("True Positive Rate / Recall:  ", tpr)
-    print("False Positive Rate / Fallout:  ", fpr)
+    print("True Positive Rate / Recall: %.2f" % tpr+str('%'))
+    print("Precision: %.2f" %precision+str('%'))
+    print("False Positive Rate / Fallout: %.2f" %fpr+str('%'))
 
     plt.plot(np.squeeze(costs))
     plt.ylabel('cost')
